@@ -1,13 +1,9 @@
 module.exports = function check(str, bracketsConfig) {
-  let pairs = bracketsConfig.map(a => a[0] + a[1]);
-  let f = false;
+  let pairs = bracketsConfig.map(a => `${a[0]}${a[1]}`);
+  let prevStr;
   do {
-    f = false;
-    for (let p of pairs) {
-      let l = str.length;
-      str = str.replace(p, "");
-      if (str.length !== l) f = true;
-    }
-  } while (f);
+    prevStr = str;
+    for (let pair of pairs) str = str.replace(pair, '');
+  } while (prevStr.length !== str.length);
   return str.length === 0;
 };
